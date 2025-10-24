@@ -13,9 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import lighthouse, { LighthouseConfig } from 'lighthouse';
+import lighthouse from 'lighthouse';
+import type { Config } from 'lighthouse';
 import waitOn from 'wait-on';
 import puppeteer from 'puppeteer';
+import type { Browser, LaunchOptions } from 'puppeteer';
 
 import { Audit, AuditListItem } from './models';
 import { persistAudit, retrieveAuditList, retrieveAuditCount } from './db';
@@ -40,7 +42,7 @@ export interface AuditOptions {
   upTimeout?: number;
   chromePort?: number;
   chromePath?: string;
-  lighthouseConfig?: LighthouseConfig;
+  lighthouseConfig?: Config;
 }
 
 /**
@@ -124,10 +126,10 @@ async function runAudit(
     return audit;
   }
 
-  let browser: puppeteer.Browser;
+  let browser: Browser;
   try {
     logger.debug('Launching Chrome with Puppeteer ...');
-    const puppeteerOptions: puppeteer.PuppeteerNodeLaunchOptions = {
+    const puppeteerOptions: LaunchOptions = {
       args: [`--remote-debugging-port=${chromePort}`, '--no-sandbox'],
     };
     if (chromePath) {
@@ -153,6 +155,10 @@ async function runAudit(
         ...lighthouseConfig,
       },
     );
+
+    if (!results) {
+      throw new Error('Lighthouse audit did not return any results.');
+    }
 
     const { lhr } = results;
     if (!lhr) {

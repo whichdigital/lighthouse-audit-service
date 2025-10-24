@@ -14,9 +14,20 @@
  * limitations under the License.
  */
 module.exports = {
-  ...require('@spotify/web-scripts/config/jest.config.js'),
-  globalSetup: '<rootDir>/jest/global_setup.ts',
-  globalTeardown: '<rootDir>/jest/global_teardown.ts',
+  preset: 'ts-jest',
+  testEnvironment: 'node',
+  globalSetup: '<rootDir>/src/jest/global_setup.ts',
+  globalTeardown: '<rootDir>/src/jest/global_teardown.ts',
   maxWorkers: 1,
   resetModules: true,
+  roots: ['<rootDir>/src'],
+  testMatch: ['**/__tests__/**/*.ts', '**/?(*.)+(spec|test).ts'],
+  transform: {
+    '^.+\\.ts$': 'ts-jest',
+  },
+  collectCoverageFrom: [
+    'src/**/*.ts',
+    '!src/**/*.d.ts',
+    '!src/**/*.test.ts',
+  ],
 };

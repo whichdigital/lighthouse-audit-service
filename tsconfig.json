@@ -1,9 +1,22 @@
 {
-  "extends": "@spotify/web-scripts/config/tsconfig.json",
-  "include": ["src"],
-  "exclude": ["src/jest", "src/**/*.test.ts"],
   "compilerOptions": {
-    "typeRoots": ["./node_modules/@types", "./src/@types"],
-    "skipLibCheck": true
-  }
+    "target": "ES2022",
+    "module": "ES2022",
+    "moduleResolution": "node",
+    "lib": ["ES2022"],
+    "outDir": "esm",
+    "rootDir": "src",
+    "strict": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "typeRoots": ["./node_modules/@types", "./src/@types"]
+  },
+  "include": ["src/**/*"],
+  "exclude": ["src/jest", "src/**/*.test.ts", "node_modules", "cjs", "esm", "types"]
 }
