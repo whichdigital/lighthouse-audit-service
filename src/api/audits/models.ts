@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { LHR, LighthouseCategory } from 'lighthouse';
+import type { Result as LHR } from 'lighthouse';
 import { v4 as uuid } from 'uuid';
 import { Logger } from 'winston';
 
@@ -52,10 +52,7 @@ export enum AuditStatus {
   COMPLETED = 'COMPLETED',
 }
 
-type LighthouseCategoryAbbr = Pick<
-  LighthouseCategory,
-  'id' | 'title' | 'score'
->;
+type LighthouseCategoryAbbr = Pick<LHR.Category, 'id' | 'title' | 'score'>;
 
 export class Audit {
   static build(params: AuditParams): Audit {

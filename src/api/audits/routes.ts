@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 import { Router, Request, Response } from 'express';
-// @ts-ignore
-import ReportGenerator from 'lighthouse/report/generator/report-generator';
+import { ReportGenerator } from 'lighthouse/report/generator/report-generator.js';
 
 import logger from '../../logger';
 import { DbConnectionType } from '../../db';
@@ -70,6 +69,10 @@ export function bindRoutes(router: Router, conn: DbConnectionType): void {
       if (req.header('Accept') === 'application/json') {
         res.json(audit.body);
       } else {
+        if (!audit.report) {
+          res.status(404).send('Report not available');
+          return;
+        }
         const html = ReportGenerator.generateReportHtml(audit.report);
         res.setHeader('Content-Type', 'text/html');
         res.send(html);

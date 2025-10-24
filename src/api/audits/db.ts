@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import SQL from 'sql-template-strings';
-import { LHR } from 'lighthouse';
+import type { Result as LHR } from 'lighthouse';
 
 import { NotFoundError } from '../../errors';
 import { DbConnectionType } from '../../db';
