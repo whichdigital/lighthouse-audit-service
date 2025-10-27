@@ -47,8 +47,11 @@ export interface AuditListItem {
 }
 
 export enum AuditStatus {
+  // eslint-disable-next-line no-unused-vars
   RUNNING = 'RUNNING',
+  // eslint-disable-next-line no-unused-vars
   FAILED = 'FAILED',
+  // eslint-disable-next-line no-unused-vars
   COMPLETED = 'COMPLETED',
 }
 
@@ -82,10 +85,15 @@ export class Audit {
   }
 
   constructor(
+    // eslint-disable-next-line no-unused-vars
     public id: string,
+    // eslint-disable-next-line no-unused-vars
     public url: string,
+    // eslint-disable-next-line no-unused-vars
     public timeCreated: Date,
+    // eslint-disable-next-line no-unused-vars
     public timeCompleted?: Date,
+    // eslint-disable-next-line no-unused-vars
     public report?: LHR,
   ) {}
 

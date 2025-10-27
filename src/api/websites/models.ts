@@ -27,9 +27,10 @@ export interface WebsiteBody {
   audits: AuditListItem[];
 }
 
-export interface WebsiteListItem extends WebsiteBody {}
+export type WebsiteListItem = WebsiteBody;
 
 export class Website {
+  // eslint-disable-next-line no-unused-vars
   constructor(public url: string, public audits: Audit[]) {
     if (audits.length === 0) {
       throw new Error('Website should not be constructed with no audits! ');

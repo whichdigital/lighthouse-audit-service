@@ -54,7 +54,7 @@ function configureMiddleware(
   app.use(
     morgan('combined', {
       stream: {
-        write(message: String) {
+        write(message: string) {
           logger.info(message);
         },
       },
@@ -63,9 +63,9 @@ function configureMiddleware(
 }
 
 export function configureErrorMiddleware(app: Application) {
-  /* eslint-disable @typescript-eslint/no-unused-vars */
+  /* eslint-disable @typescript-eslint/no-unused-vars, no-unused-vars */
   app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
-    /* eslint-enable @typescript-eslint/no-unused-vars */
+    /* eslint-enable @typescript-eslint/no-unused-vars, no-unused-vars */
     if (err instanceof StatusCodeError) res.status(err.statusCode);
     else res.status(500);
     res.send(err.message);
