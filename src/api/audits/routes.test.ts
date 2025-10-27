@@ -207,7 +207,7 @@ describe('audit routes', () => {
         });
     });
 
-    /* eslint-disable jest/expect-expect */
+     
     describe('when invalid value is provided for limit', () => {
       /* eslint-disable jest/expect-expect */
       it('rejects 400', async () => {

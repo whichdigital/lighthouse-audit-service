@@ -31,10 +31,15 @@ export interface ListResponse<Item> extends ListRequest {
 }
 
 export type ListItemsGetter<Item> = (
+  // eslint-disable-next-line no-unused-vars
   conn: DbConnectionType,
+  // eslint-disable-next-line no-unused-vars
   options: ListRequest,
 ) => Promise<Item[]>;
-export type ListTotalGetter = (conn: DbConnectionType) => Promise<number>;
+export type ListTotalGetter = (
+  // eslint-disable-next-line no-unused-vars
+  conn: DbConnectionType
+) => Promise<number>;
 
 export async function getListAsListResponse<Item>(
   conn: DbConnectionType,

@@ -131,7 +131,7 @@ describe('audit db methods', () => {
 
     describe('when id doesnt exist', () => {
       it('throws a NotFoundError', async () => {
-        await expect(retrieveAuditById(conn, uuid())).rejects.toThrowError(
+        await expect(retrieveAuditById(conn, uuid())).rejects.toThrow(
           NotFoundError,
         );
       });
@@ -253,7 +253,7 @@ describe('audit db methods', () => {
         Audit,
       );
       await deleteAuditById(conn, audit.id);
-      await expect(retrieveAuditById(conn, audit.id)).rejects.toThrowError(
+      await expect(retrieveAuditById(conn, audit.id)).rejects.toThrow(
         NotFoundError,
       );
     });
@@ -268,7 +268,7 @@ describe('audit db methods', () => {
 
     describe('when id doesnt exist', () => {
       it('throws a NotFoundError', async () => {
-        await expect(deleteAuditById(conn, uuid())).rejects.toThrowError(
+        await expect(deleteAuditById(conn, uuid())).rejects.toThrow(
           NotFoundError,
         );
       });

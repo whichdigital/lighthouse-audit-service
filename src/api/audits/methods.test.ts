@@ -216,7 +216,7 @@ describe('audit methods', () => {
     describe('when no url is provided', () => {
       it('throws an InvalidRequestError', async () => {
         // @ts-ignore
-        await expect(triggerAudit(null, conn)).rejects.toThrowError(
+        await expect(triggerAudit(null, conn)).rejects.toThrow(
           InvalidRequestError,
         );
       });
@@ -226,7 +226,7 @@ describe('audit methods', () => {
       it('throws an InvalidRequestError', async () => {
         await expect(
           triggerAudit(conn, 'www.spotify.com'),
-        ).rejects.toThrowError(InvalidRequestError);
+        ).rejects.toThrow(InvalidRequestError);
       });
     });
 

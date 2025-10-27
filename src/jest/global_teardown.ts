@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { StopOptions } from 'testcontainers/dist/test-container';
+import { StopOptions } from 'testcontainers';
 
 import { GlobalWithPostgres } from './global_setup';
 

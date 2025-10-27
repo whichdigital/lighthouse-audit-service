@@ -94,7 +94,7 @@ describe('audit db methods', () => {
       it('throws a NotFoundError', async () => {
         await expect(
           retrieveWebsiteByUrl(conn, 'https://spotify.com/de'),
-        ).rejects.toThrowError(NotFoundError);
+        ).rejects.toThrow(NotFoundError);
       });
     });
   });
@@ -119,7 +119,7 @@ describe('audit db methods', () => {
       it('throws a NotFoundError', async () => {
         await expect(
           retrieveWebsiteByUrl(conn, 'https://spotify.com/de'),
-        ).rejects.toThrowError(NotFoundError);
+        ).rejects.toThrow(NotFoundError);
       });
     });
   });

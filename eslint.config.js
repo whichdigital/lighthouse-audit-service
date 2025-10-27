@@ -17,6 +17,8 @@
 import js from '@eslint/js';
 import tseslint from '@typescript-eslint/eslint-plugin';
 import tsparser from '@typescript-eslint/parser';
+import globals from 'globals';
+import jest from 'eslint-plugin-jest';
 
 export default [
   js.configs.recommended,
@@ -27,15 +29,18 @@ export default [
       parserOptions: {
         ecmaVersion: 2022,
         sourceType: 'module',
-        project: './tsconfig.json',
+      },
+      globals: {
+        ...globals.node,
       },
     },
     plugins: {
       '@typescript-eslint': tseslint,
     },
     rules: {
-      ...tseslint.configs.recommended.rules,
       '@typescript-eslint/no-unused-vars': 'error',
+      '@typescript-eslint/no-wrapper-object-types': 'error',
+      '@typescript-eslint/no-empty-object-type': 'error',
       'prefer-const': 'error',
       'no-var': 'error',
     },
@@ -45,6 +50,9 @@ export default [
     languageOptions: {
       ecmaVersion: 2022,
       sourceType: 'module',
+      globals: {
+        ...globals.node,
+      },
     },
     rules: {
       'no-unused-vars': 'error',
@@ -54,9 +62,16 @@ export default [
     },
   },
   {
-    files: ['**/*.test.{js,ts}', '**/__tests__/**/*.{js,ts}'],
+    files: ['**/*.test.{js,ts}', '**/__tests__/**/*.{js,ts}', '**/jest/**/*.{js,ts}'],
     languageOptions: {
+      parser: tsparser,
+      parserOptions: {
+        ecmaVersion: 2022,
+        sourceType: 'module',
+      },
       globals: {
+        ...globals.node,
+        ...globals.jest,
         describe: 'readonly',
         it: 'readonly',
         expect: 'readonly',
@@ -66,6 +81,16 @@ export default [
         afterAll: 'readonly',
         jest: 'readonly',
       },
+    },
+    plugins: {
+      '@typescript-eslint': tseslint,
+      jest: jest,
+    },
+    rules: {
+      '@typescript-eslint/no-unused-vars': 'error',
+      'prefer-const': 'error',
+      'no-var': 'error',
+      ...jest.configs.recommended.rules,
     },
   },
   {

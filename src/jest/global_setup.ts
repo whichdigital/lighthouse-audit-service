@@ -21,13 +21,7 @@ import logger from '../logger';
 import { awaitDbConnection, runDbMigrations } from '../db';
 import globalTeardown from './global_teardown';
 
-declare global {
-  namespace NodeJS {
-    interface Global {}
-  }
-}
-
-export interface GlobalWithPostgres extends NodeJS.Global {
+export interface GlobalWithPostgres {
   __POSTGRES__?: StartedTestContainer;
 }
 
@@ -43,9 +37,11 @@ export default async () => {
   const container = await new GenericContainer('postgres')
     .withName(name)
     .withExposedPorts(5432)
-    .withEnv('POSTGRES_USER', 'postgres')
-    .withEnv('POSTGRES_PASSWORD', 'postgres')
-    .withEnv('POSTGRES_DB', 'postgres')
+    .withEnvironment({ 
+      'POSTGRES_USER': 'postgres',
+      'POSTGRES_PASSWORD': 'postgres', 
+      'POSTGRES_DB': 'postgres'
+    })
     .start();
 
   // We have to use global setup because it's the only way in Jest to run code once before suite.
@@ -69,6 +65,7 @@ export default async () => {
 process.on('SIGINT', async () => {
   await globalTeardown({
     timeout: Duration.ofSeconds(2).toMillis(),
+    remove: true,
     removeVolumes: true,
   });
   process.exit(1);
