@@ -1,0 +1,86 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: lighthouse-audit-service
+  description: Service for running, storing, and viewing Lighthouse audits over time.
+  annotations:
+    github.com/project-slug: whichdigital/lighthouse-audit-service
+  links:
+    - title: GitHub Repository
+      url: https://github.com/whichdigital/lighthouse-audit-service
+      icon: github
+    - title: Tests Workflow
+      url: https://github.com/whichdigital/lighthouse-audit-service/actions/workflows/test.yml
+      icon: dashboard
+  tags:
+    - lighthouse
+    - seo
+    - audit
+    - nodejs
+    - postgres
+    - docker
+spec:
+  type: service
+  lifecycle: production
+  owner: group:github/devops
+  system: lighthouse-audit-service
+  providesApis:
+    - lighthouse-audit-service-api
+  dependsOn:
+    - resource:lighthouse-audit-service-postgres
+    - resource:lighthouse-audit-service-docker-image
+    - resource:lighthouse-audit-service-runtime
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: lighthouse-audit-service-api
+  description: REST API for triggering, retrieving, listing, and deleting Lighthouse audits.
+spec:
+  type: openapi
+  lifecycle: production
+  owner: group:github/devops
+  system: lighthouse-audit-service
+  definition: |
+    openapi: 3.0.0
+    info:
+      title: Lighthouse Audit Service API
+    paths: {}
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: lighthouse-audit-service-postgres
+  description: Postgres database used to store Lighthouse audits and website audit history.
+spec:
+  type: database
+  owner: group:github/devops
+  system: lighthouse-audit-service
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: lighthouse-audit-service-docker-image
+  description: Docker image used to run the Lighthouse Audit Service with Chrome and fonts installed.
+spec:
+  type: docker-image
+  owner: group:github/devops
+  system: lighthouse-audit-service
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: lighthouse-audit-service-runtime
+  description: Lighthouse and Puppeteer runtime used to execute audits against websites.
+spec:
+  type: runtime
+  owner: group:github/devops
+  system: lighthouse-audit-service
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: lighthouse-audit-service
+  description: Lighthouse audit platform for running, storing, and reviewing website performance and SEO audits.
+spec:
+  owner: group:github/devops
